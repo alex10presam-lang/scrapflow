@@ -303,7 +303,7 @@ function navigate() {
     else link.removeAttribute("aria-current");
   });
   $("#page-name").textContent = names[page];
-  document.title = `Lastro — ${names[page]}`;
+  document.title = `ScrapFlow — ${names[page]}`;
   if (page === "batches") loadHistory();
   window.scrollTo({ top: 0 });
 }

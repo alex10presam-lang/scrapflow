@@ -1,6 +1,6 @@
 """Servidor local. Execute: python app.py."""
 
-from lastro import create_app
+from scrapflow import create_app
 
 app = create_app()
 

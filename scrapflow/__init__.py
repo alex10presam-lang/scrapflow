@@ -29,7 +29,7 @@ def create_app(config=None):
         __name__, template_folder=str(ROOT / "templates"), static_folder=str(ROOT / "static")
     )
     app.config.update(
-        MAX_CONTENT_LENGTH=5 * 1024 * 1024, DATABASE=ROOT / "instance" / "lastro.sqlite3"
+        MAX_CONTENT_LENGTH=5 * 1024 * 1024, DATABASE=ROOT / "instance" / "scrapflow.sqlite3"
     )
     if config:
         app.config.update(config)
@@ -115,7 +115,7 @@ def create_app(config=None):
         return send_file(
             workbook_report(run),
             as_attachment=True,
-            download_name=f"lastro-{run_id[:8]}.xlsx",
+            download_name=f"scrapflow-{run_id[:8]}.xlsx",
             mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )
 
@@ -129,7 +129,7 @@ def create_app(config=None):
         return send_file(
             stream,
             as_attachment=True,
-            download_name="lastro-exemplos.zip",
+            download_name="scrapflow-exemplos.zip",
             mimetype="application/zip",
         )
 

@@ -6,8 +6,8 @@ import unittest
 from zipfile import ZipFile
 
 from openpyxl import load_workbook
-from lastro import ROOT, create_app, sample_data
-from lastro.pipeline import summarize
+from scrapflow import ROOT, create_app, sample_data
+from scrapflow.pipeline import summarize
 
 
 class ApplicationTests(unittest.TestCase):

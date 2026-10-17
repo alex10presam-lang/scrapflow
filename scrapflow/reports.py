@@ -20,7 +20,7 @@ def workbook_report(run):
     cover = book.active
     cover.title = "Resumo"
     rows = [
-        ["LASTRO", "Relatório de perdas"],
+        ["SCRAPFLOW", "Relatório de perdas"],
         ["Execução", run["id"]],
         ["Origem", run["source"]],
         ["Gerado em (UTC)", run["created_at"]],

@@ -82,11 +82,16 @@ select:focus-visible {
 }
 .brand {
   display: flex;
-  gap: 12px;
+  gap: 9px;
   align-items: center;
   font-weight: 750;
-  letter-spacing: -2px;
-  font-size: 37px;
+  letter-spacing: -1px;
+  font-size: 23px;
+}
+.brand img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 }
 .brand-dot {
   color: var(--orange);
@@ -1174,7 +1179,7 @@ td:first-child {
   }
   .brand > span {
     display: block;
-    font-size: 26px;
+    font-size: 23px;
     letter-spacing: -1px;
   }
   .brand img {

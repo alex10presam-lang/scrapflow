@@ -1,22 +1,22 @@
-<img src="static/mark.svg" alt="Marca Lastro" width="56">
+<img src="static/mark.svg" alt="Marca ScrapFlow" width="56">
 
-# Lastro
+# ScrapFlow
 
 **Controle de perdas de produção, da entrada dos arquivos ao relatório Excel.**
 
-Lastro é uma aplicação local em Python que consolida cadastro de produtos, ordens de produção e registros de perda. Valida as relações entre os arquivos, calcula indicadores e permite investigar os resultados em um painel.
+ScrapFlow é uma aplicação local em Python que consolida cadastro de produtos, ordens de produção e registros de perda. Valida as relações entre os arquivos, calcula indicadores e permite investigar os resultados em um painel.
 
 Desenvolvi esta edição para demonstrar um fluxo completo de automação e análise de dados, com regras explícitas e exemplos reproduzíveis. Os dados são fictícios; o projeto não representa uma empresa ou operação real.
 
-![Painel do Lastro com dados fictícios](docs/images/dashboard.jpg)
+![Painel do ScrapFlow com dados fictícios](docs/images/dashboard.jpg)
 
 ## Experimente em poucos minutos
 
 Requisitos: **Python 3.11 ou superior**. Não é necessário instalar Microsoft Excel, Node.js ou um servidor de banco de dados para usar a aplicação.
 
 ```bash
-git clone https://github.com/alex10presam-lang/lastro.git
-cd lastro
+git clone https://github.com/alex10presam-lang/scrapflow.git
+cd scrapflow
 python -m venv .venv
 ```
 
@@ -42,7 +42,7 @@ Para testar a importação, use os três arquivos de [`examples/`](examples/) ou
 
 Planilhas separadas podem contar histórias diferentes sobre a mesma produção. Um registro duplicado aumenta a perda; uma ordem sem cadastro impede calcular seu custo; um lote parcial pode levar a conclusões erradas.
 
-O Lastro trata o conjunto como uma unidade: valida as três fontes antes de salvar qualquer resultado. Um lote inválido retorna uma mensagem com a causa e não altera as execuções anteriores.
+O ScrapFlow trata o conjunto como uma unidade: valida as três fontes antes de salvar qualquer resultado. Um lote inválido retorna uma mensagem com a causa e não altera as execuções anteriores.
 
 ## O que está implementado
 
@@ -90,10 +90,10 @@ flowchart LR
 
 | Camada | Responsabilidade |
 | --- | --- |
-| `lastro/pipeline.py` | Leitura das tabelas, contratos, relações e cálculo dos indicadores |
-| `lastro/storage.py` | Transações e consulta das execuções em SQLite |
-| `lastro/reports.py` | Geração do relatório e proteção de textos que poderiam virar fórmulas |
-| `lastro/__init__.py` | Fábrica Flask, rotas HTTP e respostas de erro |
+| `scrapflow/pipeline.py` | Leitura das tabelas, contratos, relações e cálculo dos indicadores |
+| `scrapflow/storage.py` | Transações e consulta das execuções em SQLite |
+| `scrapflow/reports.py` | Geração do relatório e proteção de textos que poderiam virar fórmulas |
+| `scrapflow/__init__.py` | Fábrica Flask, rotas HTTP e respostas de erro |
 | `static/` e `templates/` | Interface sem framework e sem etapa de compilação |
 
 Escolhi **Flask + SQLite** porque o uso é local e o volume é limitado. Um worker, uma fila ou um banco externo acrescentariam operação sem resolver um requisito desta versão. Os cálculos não dependem das rotas HTTP, o que permite testá-los separadamente.
@@ -115,9 +115,9 @@ O workflow do GitHub Actions configura a execução em Windows e Linux com Pytho
 ## Organização
 
 ```text
-lastro/
+scrapflow/
 ├── app.py                   # Entrada do servidor local
-├── lastro/                  # Backend e regras de negócio
+├── scrapflow/                  # Backend e regras de negócio
 ├── templates/index.html     # Estrutura da interface
 ├── static/                  # Estilos, comportamento e marca
 ├── examples/                # Três arquivos CSV fictícios
@@ -127,7 +127,7 @@ lastro/
 └── requirements.txt
 ```
 
-O banco é criado em `instance/lastro.sqlite3`, fora do versionamento. Os uploads são processados em memória; somente o lote normalizado é persistido localmente. O histórico mostra as últimas 100 execuções.
+O banco é criado em `instance/scrapflow.sqlite3`, fora do versionamento. Os uploads são processados em memória; somente o lote normalizado é persistido localmente. O histórico mostra as últimas 100 execuções.
 
 ## Limites da versão
 

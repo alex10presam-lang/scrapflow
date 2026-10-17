@@ -5,7 +5,7 @@ from io import BytesIO
 import unittest
 from openpyxl import Workbook
 
-from lastro.pipeline import InputError, consolidate, read_table, summarize
+from scrapflow.pipeline import InputError, consolidate, read_table, summarize
 
 
 def fixture():

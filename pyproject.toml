@@ -1,5 +1,5 @@
 [project]
-name = "lastro"
+name = "scrapflow"
 version = "1.0.0"
 description = "Consolidação de perdas de produção com dados demonstrativos"
 requires-python = ">=3.11"
