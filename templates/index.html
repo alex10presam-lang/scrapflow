@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Lastro: da planilha à leitura das perdas. Demonstração independente de automação e análise de dados de produção."
+    />
+    <title>Lastro — Controle de perdas</title>
+    <link rel="icon" href="/static/mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/app.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Ir para o conteúdo</a>
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Lastro, visão geral"
+        ><img src="/static/mark.svg" alt="" width="38" height="38" /><span
+          >lastro<span class="brand-dot">.</span></span
+        ></a
+      >
+      <div class="side-caption">CONTROLE DE PERDAS</div>
+      <nav aria-label="Navegação principal">
+        <a href="#overview" class="nav-link active" data-page="overview"
+          aria-label="Visão geral"
+          ><span class="nav-icon">◫</span>Visão geral<span class="nav-index"
+            >01</span
+          ></a
+        >
+        <a href="#batches" class="nav-link" data-page="batches"
+          aria-label="Processamentos"
+          ><span class="nav-icon">▤</span>Processamentos<span class="nav-index"
+            >02</span
+          ></a
+        >
+        <a href="#method" class="nav-link" data-page="method"
+          aria-label="Como funciona"
+          ><span class="nav-icon">⌁</span>Como funciona<span class="nav-index"
+            >03</span
+          ></a
+        >
+      </nav>
+      <div class="side-note">
+        <span class="tiny-label">O QUE NÃO SE MEDE,<br />NÃO SE RECUPERA.</span>
+        <div class="side-ruler" aria-hidden="true"></div>
+        <p>Menos planilhas soltas.<br />Mais clareza sobre a operação.</p>
+      </div>
+      <div class="side-bottom">
+        <span class="status-dot"></span> Edição de portfólio <span>v1.0</span>
+      </div>
+    </aside>
+    <main id="main">
+      <header class="topbar">
+        <div>
+          <span class="breadcrumb">ÁREA DE TRABALHO</span
+          ><span class="top-separator">/</span
+          ><span id="page-name">Visão geral</span>
+        </div>
+        <span class="local-badge"
+          ><span class="status-dot"></span> Ambiente local</span
+        >
+      </header>
+      <div class="page-content">
+        <section id="overview" class="page">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">01 / INTELIGÊNCIA OPERACIONAL</p>
+              <h1>Cada perda conta.</h1>
+              <p class="lead">
+                Encontre o custo por trás dos números da produção.
+              </p>
+            </div>
+            <button class="button primary run-demo" type="button">
+              <span class="play-icon">▶</span> Processar demonstração
+            </button>
+          </div>
+          <section class="material-panel" aria-label="Fluxo de consolidação">
+            <div class="material-copy">
+              <span class="pill" id="source-badge"
+                >DADOS FICTÍCIOS · PRÉVIA</span
+              >
+              <h2>Da planilha<br />à decisão.</h2>
+              <p>
+                Três fontes. Uma leitura.<br />Uma base para investigar o
+                desperdício.
+              </p>
+              <a href="#batches" class="text-link"
+                >Importar meu lote <span>↗</span></a
+              >
+            </div>
+            <div class="flow-illustration" aria-hidden="true">
+              <div class="drawing-label">FLUXO DE CONSOLIDAÇÃO / 001</div>
+              <svg viewBox="0 0 640 230" role="presentation">
+                <defs>
+                  <pattern
+                    id="grid"
+                    width="20"
+                    height="20"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <circle cx="1" cy="1" r=".8" fill="#c3c9c8" />
+                  </pattern>
+                </defs>
+                <rect width="640" height="230" fill="url(#grid)" />
+                <g fill="none" stroke="#b6c0c2" stroke-width="1.5">
+                  <path d="M159 49H245Q270 49 270 74V105H330" />
+                  <path d="M159 113H330" />
+                  <path d="M159 177H245Q270 177 270 152V121H330" />
+                  <path d="M430 113H483" />
+                </g>
+                <g fill="#f9faf7" stroke="#bac4c6">
+                  <rect x="24" y="26" width="135" height="46" rx="3" />
+                  <rect x="24" y="90" width="135" height="46" rx="3" />
+                  <rect x="24" y="154" width="135" height="46" rx="3" />
+                </g>
+                <g fill="#314853" font-family="monospace" font-size="12">
+                  <text x="41" y="54">01 / PRODUTOS</text>
+                  <text x="41" y="118">02 / PRODUÇÃO</text>
+                  <text x="41" y="182">03 / PERDAS</text>
+                </g>
+                <circle cx="380" cy="113" r="57" fill="#142c3b" />
+                <circle
+                  cx="380"
+                  cy="113"
+                  r="46"
+                  fill="none"
+                  stroke="#607584"
+                  stroke-dasharray="2 5"
+                />
+                <path d="M360 91v44h41v-12h-29V91z" fill="#f2f0e8" />
+                <path d="M384 90h17v17h-17z" fill="#ed693e" />
+                <rect
+                  x="484"
+                  y="59"
+                  width="134"
+                  height="109"
+                  rx="4"
+                  fill="#ed693e"
+                />
+                <path
+                  d="M507 141v-23m21 23V99m21 42V86m21 55v-35m21 35V78"
+                  stroke="#142c3b"
+                  stroke-width="10"
+                />
+                <path d="M501 151h101" stroke="#142c3b" />
+                <text
+                  x="344"
+                  y="200"
+                  fill="#536b76"
+                  font-family="monospace"
+                  font-size="10"
+                  letter-spacing="2"
+                >
+                  VALIDAR → UNIR → MEDIR
+                </text>
+              </svg>
+              <div class="drawing-footer">
+                <span>ENTRADA ESTRUTURADA</span><span>SAÍDA RASTREÁVEL ↗</span>
+              </div>
+            </div>
+          </section>
+          <div class="section-toolbar">
+            <div>
+              <h2>Leitura do lote</h2>
+              <p id="dataset-caption">
+                Prévia do conjunto de exemplo. Nenhuma execução salva.
+              </p>
+            </div>
+            <label class="select-label"
+              >Linha de produção<select id="line-filter">
+                <option value="">Todas as linhas</option>
+              </select></label
+            >
+          </div>
+          <div class="metric-grid" aria-live="polite">
+            <article class="metric">
+              <span class="metric-label">CUSTO ESTIMADO DAS PERDAS</span
+              ><strong id="metric-cost">—</strong
+              ><span class="metric-foot">Quantidade × custo unitário</span
+              ><span class="metric-corner">R$</span>
+            </article>
+            <article class="metric">
+              <span class="metric-label">TAXA DE PERDA</span
+              ><strong id="metric-rate">—</strong
+              ><span class="metric-foot">Sobre o volume total processado</span
+              ><span class="metric-corner">%</span>
+            </article>
+            <article class="metric">
+              <span class="metric-label">UNIDADES PERDIDAS</span
+              ><strong id="metric-lost">—</strong
+              ><span class="metric-foot" id="metric-good">— unidades boas</span
+              ><span class="metric-corner">UN</span>
+            </article>
+            <article class="metric">
+              <span class="metric-label">ORDENS ANALISADAS</span
+              ><strong id="metric-orders">—</strong
+              ><span class="metric-foot" id="metric-records"
+                >— registros de perda</span
+              ><span class="metric-corner">OP</span>
+            </article>
+          </div>
+          <div class="chart-grid">
+            <section class="card reasons-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">PRIORIDADES</p>
+                  <h2>Onde o custo se concentra</h2>
+                </div>
+                <span class="chart-unit">BRL / R$</span>
+              </div>
+              <div id="reasons" class="reason-list"></div>
+              <p class="card-note">
+                Ordenado por custo estimado, não por frequência.
+              </p>
+            </section>
+            <section class="card trend-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">DISTRIBUIÇÃO</p>
+                  <h2>Perdas ao longo do lote</h2>
+                </div>
+                <span class="chart-unit">UNIDADES</span>
+              </div>
+              <div id="trend" class="trend"></div>
+              <p class="card-note">
+                Cada barra representa uma data com registros de perda.
+              </p>
+            </section>
+          </div>
+          <section class="card records-card">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">RASTREABILIDADE</p>
+                <h2>Por trás de cada número</h2>
+              </div>
+              <a
+                id="report-link"
+                class="button secondary disabled"
+                aria-disabled="true"
+                >Exportar Excel <span>↗</span></a
+              >
+            </div>
+            <div class="table-tools">
+              <label class="search-label"
+                ><span aria-hidden="true">⌕</span
+                ><input
+                  id="search"
+                  type="search"
+                  placeholder="Buscar produto, ordem ou motivo"
+                  aria-label="Buscar nos registros" /></label
+              ><span id="table-count"></span>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Produto / ordem</th>
+                    <th>Linha</th>
+                    <th>Motivo</th>
+                    <th class="numeric">Unidades</th>
+                    <th class="numeric">Custo</th>
+                  </tr>
+                </thead>
+                <tbody id="records"></tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span>Exportação contém o lote completo, sem filtros.</span>
+              <div>
+                <button
+                  type="button"
+                  id="previous"
+                  class="page-button"
+                  aria-label="Página anterior"
+                >
+                  ←</button
+                ><span id="pagination"></span
+                ><button
+                  type="button"
+                  id="next"
+                  class="page-button"
+                  aria-label="Próxima página"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section id="batches" class="page" hidden>
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">02 / PROCESSAMENTOS</p>
+              <h1>Um lote. Uma versão.</h1>
+              <p class="lead">
+                Valide as fontes antes de transformar dados em indicadores.
+              </p>
+            </div>
+            <a class="button secondary" href="/api/examples"
+              >Baixar exemplos <span>↓</span></a
+            >
+          </div>
+          <div class="import-layout">
+            <section class="card import-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">NOVA CONSOLIDAÇÃO</p>
+                  <h2>Adicione os três arquivos</h2>
+                </div>
+                <span class="pill subtle">CSV OU XLSX</span>
+              </div>
+              <p class="form-help">
+                Mesmo período, mesmo lote. Até 5 MB no total e 10.000 registros
+                por arquivo.
+              </p>
+              <form id="upload-form">
+                <div class="file-grid">
+                  <label class="file-zone"
+                    ><span class="file-number">01</span><strong>Produtos</strong
+                    ><span>Cadastro e linha de produção</span
+                    ><input
+                      name="produtos"
+                      type="file"
+                      accept=".csv,.xlsx"
+                      required
+                    /><span class="file-selection"
+                      >Selecionar arquivo ↗</span
+                    ></label
+                  >
+                  <label class="file-zone"
+                    ><span class="file-number">02</span><strong>Produção</strong
+                    ><span>Ordens, volume bom e custo</span
+                    ><input
+                      name="producao"
+                      type="file"
+                      accept=".csv,.xlsx"
+                      required
+                    /><span class="file-selection"
+                      >Selecionar arquivo ↗</span
+                    ></label
+                  >
+                  <label class="file-zone"
+                    ><span class="file-number">03</span><strong>Perdas</strong
+                    ><span>Ocorrências e quantidades</span
+                    ><input
+                      name="perdas"
+                      type="file"
+                      accept=".csv,.xlsx"
+                      required
+                    /><span class="file-selection"
+                      >Selecionar arquivo ↗</span
+                    ></label
+                  >
+                </div>
+                <div class="form-bottom">
+                  <p>
+                    Os arquivos originais não são alterados.<br />Um lote
+                    inválido não entra no histórico.
+                  </p>
+                  <button
+                    class="button primary"
+                    type="submit"
+                    id="upload-button"
+                  >
+                    Validar e processar <span>→</span>
+                  </button>
+                </div>
+                <p id="upload-error" class="form-error" role="alert" hidden></p>
+              </form>
+            </section>
+            <aside class="demo-card">
+              <p class="eyebrow">PRIMEIRO CONTATO?</p>
+              <h2>Explore sem<br />preparar arquivos.</h2>
+              <p>
+                Use um lote fictício com três linhas de produção e diferentes
+                motivos de perda.
+              </p>
+              <button class="button light run-demo" type="button">
+                Usar demonstração <span>→</span></button
+              ><span class="demo-caption"
+                >Dados reproduzíveis. Nenhuma empresa real.</span
+              >
+            </aside>
+          </div>
+          <section class="card history-card">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">MEMÓRIA DA OPERAÇÃO</p>
+                <h2>Histórico de processamentos</h2>
+              </div>
+              <button
+                class="button secondary"
+                id="refresh-history"
+                type="button"
+              >
+                Atualizar ↻
+              </button>
+            </div>
+            <div id="history"></div>
+          </section>
+        </section>
+        <section id="method" class="page" hidden>
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">03 / MÉTODO</p>
+              <h1>Sem caixa-preta.</h1>
+              <p class="lead">
+                Os indicadores têm origem, fórmula e limites claros.
+              </p>
+            </div>
+            <a class="button secondary" href="/api/examples"
+              >Baixar o lote fictício ↓</a
+            >
+          </div>
+          <div class="method-grid">
+            <article class="card method-intro">
+              <span class="large-number">01—03</span>
+              <h2>Uma pequena cadeia<br />de confiança.</h2>
+              <p>
+                O cadastro descreve os produtos. As ordens informam o volume bom
+                e o custo unitário. Os registros de perda conectam ocorrências
+                às ordens.
+              </p>
+              <ol class="steps">
+                <li>
+                  <strong>Validar</strong
+                  ><span
+                    >Cabeçalhos, campos obrigatórios, datas e identificadores
+                    únicos.</span
+                  >
+                </li>
+                <li>
+                  <strong>Relacionar</strong
+                  ><span
+                    >Cada ordem precisa de um produto. Cada perda precisa de uma
+                    ordem.</span
+                  >
+                </li>
+                <li>
+                  <strong>Consolidar</strong
+                  ><span
+                    >O lote inteiro é salvo em uma transação. Depois disso, o
+                    relatório pode ser exportado.</span
+                  >
+                </li>
+              </ol>
+            </article>
+            <div class="formula-stack">
+              <article class="card formula">
+                <p class="eyebrow">INDICADOR / 01</p>
+                <h2>Taxa de perda</h2>
+                <div class="equation">
+                  perdidas <span>÷</span> (boas + perdidas) <span>× 100</span>
+                </div>
+                <p>
+                  Usa o volume total processado. Unidades boas são produtos
+                  aprovados; unidades perdidas são descartes. Não é uma medição
+                  de OEE.
+                </p>
+              </article>
+              <article class="card formula">
+                <p class="eyebrow">INDICADOR / 02</p>
+                <h2>Custo estimado</h2>
+                <div class="equation">
+                  quantidade perdida <span>×</span> custo unitário
+                </div>
+                <p>
+                  Soma dos custos por ocorrência, calculados em centavos. Não
+                  inclui retrabalho, logística ou custo de oportunidade.
+                </p>
+              </article>
+            </div>
+          </div>
+          <section class="card contract">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">CONTRATO DE DADOS</p>
+                <h2>O formato faz parte do processo</h2>
+              </div>
+            </div>
+            <div class="contract-row">
+              <strong>produtos.csv</strong
+              ><code>produto · descricao · linha</code>
+            </div>
+            <div class="contract-row">
+              <strong>producao.csv</strong
+              ><code>ordem · produto · quantidade_boa · custo_unitario</code>
+            </div>
+            <div class="contract-row">
+              <strong>perdas.csv</strong
+              ><code>id · ordem · data · quantidade · motivo</code>
+            </div>
+            <p>
+              CSV em UTF-8, separado por vírgula ou ponto e vírgula. Datas em
+              AAAA-MM-DD. Quantidades inteiras. Custo com até duas casas
+              decimais, sem separador de milhares. Para Excel, use a primeira
+              aba com o mesmo cabeçalho e datas em texto.
+            </p>
+          </section>
+          <div class="scope-note">
+            <strong>Uma demonstração independente.</strong>
+            <p>
+              Este projeto foi criado para apresentar automação e análise de
+              dados. Os exemplos são fictícios e não representam uma operação
+              real. A aplicação funciona localmente, sem autenticação; não foi
+              projetada para exposição direta na internet.
+            </p>
+          </div>
+        </section>
+        <footer class="footer">
+          <span
+            >LASTRO <span class="footer-slash">/</span> DADOS QUE SUSTENTAM
+            DECISÕES</span
+          ><span>Projeto de Alexandre Prestes · 2026</span>
+        </footer>
+      </div>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <noscript
+      ><p class="noscript">
+        Ative o JavaScript para usar o painel. Os exemplos continuam disponíveis
+        em /api/examples.
+      </p></noscript
+    >
+  </body>
+</html>

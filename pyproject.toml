@@ -1,0 +1,8 @@
+[project]
+name = "lastro"
+version = "1.0.0"
+description = "Consolidação de perdas de produção com dados demonstrativos"
+requires-python = ">=3.11"
+
+[tool.black]
+line-length = 100
