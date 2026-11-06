@@ -10,6 +10,13 @@ Desenvolvi esta edição para demonstrar um fluxo completo de automação e aná
 
 ![Painel do ScrapFlow com dados fictícios](docs/images/dashboard.jpg)
 
+## Leitura rápida do projeto
+
+- **Foco:** automação em Python, validação de dados e indicadores de produção.
+- **Evidência técnica:** [pipeline de importação e cálculo](scrapflow/pipeline.py), [contrato dos arquivos](docs/data-contract.md) e [testes do pipeline](tests/test_pipeline.py).
+- **Para avaliar:** [processe a demonstração](#experimente-em-poucos-minutos), confira os indicadores e exporte o relatório Excel.
+- **Estado:** aplicação local com dados fictícios; os [resultados do exemplo](#um-resultado-que-você-pode-conferir) permitem conferir os cálculos.
+
 ## Experimente em poucos minutos
 
 Requisitos: **Python 3.11 ou superior**. Não é necessário instalar Microsoft Excel, Node.js ou um servidor de banco de dados para usar a aplicação.
