@@ -1,0 +1,26 @@
+{
+  "name": "ScrapFlow - bots de demonstracao",
+  "active": false,
+  "settings": {"timezone": "America/Manaus", "executionTimeout": 300},
+  "nodes": [
+    {"id":"manual","name":"Executar manualmente","type":"n8n-nodes-base.manualTrigger","typeVersion":1,"position":[0,0],"parameters":{}},
+    {"id":"schedule","name":"Segunda a sexta 09h","type":"n8n-nodes-base.scheduleTrigger","typeVersion":1.2,"position":[0,180],"parameters":{"rule":{"interval":[{"field":"cronExpression","expression":"0 0 9 * * 1-5"}]}}},
+    {"id":"start","name":"Iniciar bots ficticios","type":"n8n-nodes-base.httpRequest","typeVersion":4.2,"position":[260,0],"parameters":{"method":"POST","url":"http://127.0.0.1:5050/api/automation/jobs","sendBody":true,"specifyBody":"json","jsonBody":"{\"trigger\":\"schedule\",\"scenario\":\"normal\"}","options":{"timeout":15000}}},
+    {"id":"wait","name":"Aguardar resultado","type":"n8n-nodes-base.wait","typeVersion":1.1,"position":[500,0],"parameters":{"resume":"timeInterval","amount":2,"unit":"seconds"}},
+    {"id":"get","name":"Consultar bots","type":"n8n-nodes-base.httpRequest","typeVersion":4.2,"position":[730,0],"parameters":{"url":"={{ 'http://127.0.0.1:5050/api/automation/jobs/' + $('Iniciar bots ficticios').first().json.job.id }}","options":{"timeout":15000}}},
+    {"id":"done","name":"Lote publicado?","type":"n8n-nodes-base.if","typeVersion":2.2,"position":[960,0],"parameters":{"conditions":{"options":{"caseSensitive":true,"leftValue":"","typeValidation":"strict","version":2},"conditions":[{"id":"done-condition","leftValue":"={{ $json.job.status }}","rightValue":"done","operator":{"type":"string","operation":"equals"}}],"combinator":"and"}}},
+    {"id":"ok","name":"Relatorio conferido","type":"n8n-nodes-base.noOp","typeVersion":1,"position":[1200,-120],"parameters":{}},
+    {"id":"running","name":"Ainda em execucao?","type":"n8n-nodes-base.if","typeVersion":2.2,"position":[1200,100],"parameters":{"conditions":{"options":{"caseSensitive":true,"leftValue":"","typeValidation":"strict","version":2},"conditions":[{"id":"running-condition","leftValue":"={{ $json.job.status }}","rightValue":"running","operator":{"type":"string","operation":"equals"}}],"combinator":"and"}}},
+    {"id":"error","name":"Informar falha","type":"n8n-nodes-base.stopAndError","typeVersion":1,"position":[1440,200],"parameters":{"errorMessage":"={{ $json.job.error || 'Os bots nao concluiram a publicacao.' }}"}},
+    {"id":"note","name":"Somente demonstracao","type":"n8n-nodes-base.stickyNote","typeVersion":1,"position":[0,-300],"parameters":{"content":"## ScrapFlow: fontes ficticias\nExecute python app.py antes de testar.\nImporte este JSON no seu n8n; ele nao instala nem configura um servidor.\nA agenda so inicia apos ativar/publicar o fluxo.\nO disparo com trigger=schedule reutiliza o trabalho do dia.\nNao conecta a ERP, nao contem credenciais e nao deve ser exposto na internet.","width":650,"height":240}}
+  ],
+  "connections": {
+    "Executar manualmente":{"main":[[{"node":"Iniciar bots ficticios","type":"main","index":0}]]},
+    "Segunda a sexta 09h":{"main":[[{"node":"Iniciar bots ficticios","type":"main","index":0}]]},
+    "Iniciar bots ficticios":{"main":[[{"node":"Aguardar resultado","type":"main","index":0}]]},
+    "Aguardar resultado":{"main":[[{"node":"Consultar bots","type":"main","index":0}]]},
+    "Consultar bots":{"main":[[{"node":"Lote publicado?","type":"main","index":0}]]},
+    "Lote publicado?":{"main":[[{"node":"Relatorio conferido","type":"main","index":0}],[{"node":"Ainda em execucao?","type":"main","index":0}]]},
+    "Ainda em execucao?":{"main":[[{"node":"Aguardar resultado","type":"main","index":0}],[{"node":"Informar falha","type":"main","index":0}]]}
+  }
+}

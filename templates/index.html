@@ -11,6 +11,7 @@
     <link rel="icon" href="/static/mark.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/static/app.css" />
     <script src="/static/app.js" defer></script>
+    <script src="/static/automation.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Ir para o conteúdo</a>
@@ -34,10 +35,12 @@
             >02</span
           ></a
         >
+        <a href="#automation" class="nav-link" data-page="automation" aria-label="Bots automáticos"
+          ><span class="nav-icon">↻</span>Bots automáticos<span class="nav-index">03</span></a>
         <a href="#method" class="nav-link" data-page="method"
           aria-label="Como funciona"
           ><span class="nav-icon">⌁</span>Como funciona<span class="nav-index"
-            >03</span
+            >04</span
           ></a
         >
       </nav>
@@ -47,7 +50,7 @@
         <p>Menos planilhas soltas.<br />Mais clareza sobre a operação.</p>
       </div>
       <div class="side-bottom">
-        <span class="status-dot"></span> Edição de portfólio <span>v1.0</span>
+        <span class="status-dot"></span> Edição de portfólio <span>v1.1</span>
       </div>
     </aside>
     <main id="main">
@@ -287,6 +290,54 @@
               </div>
             </div>
           </section>
+        </section>
+        <section id="automation" class="page" hidden>
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">03 / AUTOMAÇÃO</p>
+              <h1>Três bots. Um lote conferido.</h1>
+              <p class="lead">Coleta paralela, validação e relatório, sem preparar os arquivos manualmente.</p>
+            </div>
+            <span class="pill">FONTES FICTÍCIAS · EXECUÇÃO REAL</span>
+          </div>
+          <section class="card bot-control">
+            <div class="card-heading">
+              <div><p class="eyebrow">DEMONSTRAÇÃO EXECUTÁVEL</p><h2>Do arquivo ao indicador, automaticamente</h2></div>
+              <button type="button" id="run-bots" class="button primary">Executar bots <span>↗</span></button>
+            </div>
+            <div class="bot-intro">
+              <p>Os bots coletam os CSVs fictícios deste projeto. Não acessam ERP, contas ou serviços de empresas.</p>
+              <label for="bot-scenario">Cenário da execução</label>
+              <select id="bot-scenario">
+                <option value="normal">Fluxo completo</option>
+                <option value="temporary_failure">Falha temporária e nova tentativa</option>
+                <option value="invalid_batch">Lote inválido: bloquear publicação</option>
+              </select>
+              <p id="bot-status" role="status" aria-live="polite">Pronto para coletar as três fontes.</p>
+            </div>
+            <div class="bot-grid" id="bot-sources">
+              <article class="bot-source"><span class="eyebrow">BOT / 01</span><h3>Produtos</h3><p>Cadastro e linhas de produção</p><strong id="bot-produtos">Aguardando</strong></article>
+              <article class="bot-source"><span class="eyebrow">BOT / 02</span><h3>Produção</h3><p>Ordens, volumes e custos</p><strong id="bot-producao">Aguardando</strong></article>
+              <article class="bot-source"><span class="eyebrow">BOT / 03</span><h3>Perdas</h3><p>Datas, quantidades e motivos</p><strong id="bot-perdas">Aguardando</strong></article>
+            </div>
+            <div class="bot-result" id="bot-result" hidden></div>
+            <div class="bot-actions">
+              <a id="bot-dashboard" class="button primary" hidden>Abrir indicadores ↗</a>
+              <a id="bot-archive" class="button secondary" hidden>Baixar conferência ↓</a>
+            </div>
+          </section>
+          <div class="bot-bottom-grid">
+            <section class="card">
+              <div class="card-heading"><div><p class="eyebrow">RASTREABILIDADE</p><h2>Histórico dos bots</h2></div></div>
+              <div id="bot-history"><p class="empty">Nenhuma execução dos bots registrada.</p></div>
+            </section>
+            <section class="card bot-schedule">
+              <p class="eyebrow">AGENDA OPCIONAL</p><h2>Um fluxo pronto para o n8n</h2>
+              <p>Segunda a sexta, às 09h de Manaus. A agenda só funciona depois de importar e ativar o fluxo no seu n8n, com o ScrapFlow em execução.</p>
+              <a class="button secondary" href="/api/automation/workflow">Baixar fluxo n8n ↓</a>
+              <p>O mesmo disparo agendado reutiliza o trabalho do dia. Nenhuma configuração é aplicada automaticamente ao computador.</p>
+            </section>
+          </div>
         </section>
         <section id="batches" class="page" hidden>
           <div class="page-heading">

@@ -11,6 +11,30 @@
   --mono: Consolas, "Liberation Mono", monospace;
   --sans: "Segoe UI", Arial, sans-serif;
 }
+.bot-intro { padding: 0 24px 12px; color: var(--muted); line-height: 1.7; }
+.bot-intro label { display: block; font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.bot-intro select { padding: 10px; border: 1px solid var(--line); border-radius: 4px; width: min(100%, 410px); background: var(--white); color: var(--ink); }
+#bot-status { color: var(--ink); font-weight: 600; min-height: 24px; }
+.bot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 4px 24px 24px; }
+.bot-source { padding: 22px; border: 1px solid var(--line); border-top: 3px solid var(--navy); border-radius: 4px; min-width: 0; }
+.bot-source h3 { margin: 12px 0; }
+.bot-source p, .bot-source strong { font-size: 12px; line-height: 1.7; }
+.bot-source strong { display: block; overflow-wrap: anywhere; }
+.bot-source[data-status="collected"] { border-top-color: #3b785e; background: #f0f6f1; }
+.bot-source[data-status="retrying"] { border-top-color: var(--orange); background: #fff5e9; }
+.bot-source[data-status="failed"] { border-top-color: #ad4538; }
+.bot-result { margin: 0 24px 20px; padding: 20px; background: var(--paper); line-height: 1.7; }
+.bot-result p { margin: 8px 0; }
+.bot-result[data-status="failed"], .bot-result[data-status="interrupted"] { border-left: 3px solid #ad4538; }
+.bot-result small { overflow-wrap: anywhere; color: var(--muted); }
+.bot-actions { display: flex; gap: 12px; padding: 0 24px 24px; flex-wrap: wrap; }
+.bot-bottom-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; margin: 24px 0; }
+.bot-schedule { padding: 24px; }
+.bot-schedule p { color: var(--muted); line-height: 1.8; }
+.bot-history-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 24px; border-top: 1px solid var(--line); }
+.bot-history-row small { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; }
+@media(max-width: 1000px) { .bot-grid, .bot-bottom-grid { grid-template-columns: 1fr; } }
+@media(max-width: 540px) { .bot-control .card-heading { flex-direction: column; align-items: stretch; } .bot-grid { margin: 0 16px 20px; } .bot-history-row { flex-wrap: wrap; } .bot-intro, .bot-actions { padding-left: 16px; padding-right: 16px; } }
 * {
   box-sizing: border-box;
 }

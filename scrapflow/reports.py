@@ -33,7 +33,7 @@ def workbook_report(run):
             "Nota",
             (
                 "Demonstração com dados sintéticos"
-                if run["source"] == "demo"
+                if run["source"] in {"demo", "bots"}
                 else "Lote importado pelo usuário"
             ),
         ],

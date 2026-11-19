@@ -24,7 +24,9 @@ Não se deve comparar taxas de lotes com períodos ou critérios diferentes sem 
 
 ## Interface sem build
 
-HTML, CSS e JavaScript nativos são suficientes para os três fluxos: consultar, importar e entender o cálculo. A interface usa `textContent` para inserir dados e não injeta HTML vindo dos arquivos. Não carrega fontes ou bibliotecas de terceiros.
+HTML, CSS e JavaScript nativos são suficientes para consultar, importar, entender o cálculo e acompanhar os bots. A interface usa `textContent` para inserir dados e não injeta HTML vindo dos arquivos. Não carrega fontes ou bibliotecas de terceiros.
+
+A edição 1.1 adiciona um quarto fluxo: bots automáticos com fontes fictícias. `automation.py` coordena um trabalhador em segundo plano e três coletores paralelos. `AutomationStore` persiste os estados e publica lote e conclusão em uma única transação. O componente não conhece sistemas corporativos; reutiliza o pipeline e a exportação existentes. Os detalhes de concorrência, arquivos e recuperação estão em [automation.md](automation.md).
 
 A identidade visual usa desenho vetorial próprio, marca geométrica, linhas de construção e cores de leitura industrial. O SVG é código do repositório, sem dependência de imagens geradas ou banco de imagens.
 
@@ -36,9 +38,10 @@ Isso não substitui autenticação, autorização, armazenamento protegido ou co
 
 ## Validação realizada
 
-- 30 testes de backend, incluindo regressões e requisições completas de importação/exportação.
+- 47 testes de backend, incluindo regressões, concorrência, tentativas, deduplicação, conferência dos arquivos salvos e requisições completas de importação/exportação.
 - Teste manual no navegador: demonstração, importação dos três exemplos, filtro por linha, busca sem resultados e navegação.
 - Conferência visual em desktop e viewport móvel de 390 px.
+- Verificação automatizada pontual no Edge dos três cenários dos bots, sem erros JavaScript e sem rolagem horizontal em 390 px.
 - Dados e resultados de exemplo determinísticos.
 
-Os testes de navegador ainda são manuais. A suíte automática cobre os contratos e a API, mas não garante ausência de regressões visuais.
+As verificações de navegador não fazem parte do CI. A suíte versionada cobre os contratos e a API, mas não garante ausência de regressões visuais.

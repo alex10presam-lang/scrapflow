@@ -11,6 +11,11 @@ Base: `http://127.0.0.1:5050`. Todas as respostas de dados usam JSON. Os downloa
 | `POST /api/runs` | Recebe multipart com `produtos`, `producao` e `perdas`; devolve ID do lote |
 | `GET /api/runs/<id>/report` | Exporta o lote completo em Excel, independentemente dos filtros do painel |
 | `GET /api/examples` | ZIP com os três CSVs fictícios |
+| `GET /api/automation` | Modo demonstrativo, configuração explicativa da agenda e até 30 trabalhos dos bots |
+| `POST /api/automation/jobs` | Inicia ou reutiliza um trabalho; recebe JSON com `scenario` e `trigger` |
+| `GET /api/automation/jobs/<id>` | Estado, fases, fontes, tentativas, contagens e resultado |
+| `GET /api/automation/jobs/<id>/archive` | ZIP dos arquivos de conferência após término, inclusive artefatos parciais de falhas |
+| `GET /api/automation/workflow` | Template n8n inativo, sem credenciais |
 
 ## Erros
 
@@ -19,8 +24,14 @@ Base: `http://127.0.0.1:5050`. Todas as respostas de dados usam JSON. Os downloa
 - `404`: ID de execução não encontrado.
 - `403`: tentativa de processamento enviada por origem externa identificada.
 
-Cada POST válido cria uma execução nova. Não há deduplicação entre execuções diferentes ou chave de idempotência. Uma repetição do mesmo lote aparece novamente no histórico.
+Os POSTs de importação e demonstração manual criam lotes novos. Os bots usam outro contrato: um trabalho ativo é reutilizado e `trigger: schedule` utiliza uma chave diária de Manaus, persistente após reinício. O processamento automático é assíncrono; o POST retorna `202` enquanto o trabalho estiver ativo e `200` quando reutilizar um resultado terminal. O corpo contém `job` e `reused`. Consulte [a automação](automation.md).
+
+```json
+{"scenario": "temporary_failure", "trigger": "manual"}
+```
+
+Os cenários aceitos são `normal`, `temporary_failure` e `invalid_batch`; o disparo agendado aceita apenas `normal`. Não são aceitos caminhos de arquivos, URLs ou credenciais. Um lote inválido durante o trabalho retorna estado `failed` na consulta, sem publicar o lote. Baixar a conferência de um trabalho ainda ativo retorna `409`.
 
 ## Datas e filtros
 
-Horários de processamento são armazenados em UTC e apresentados no fuso do navegador. Datas das perdas são datas de calendário, sem conversão de fuso. O resumo inclui todas as ordens da linha selecionada, não apenas as que possuem perdas.
+Horários dos lotes são armazenados em UTC; os trabalhos dos bots usam timestamps com deslocamento de Manaus. A interface apresenta horários no fuso do navegador. A chave diária e os diretórios dos bots usam UTC-04 (Manaus). Datas das perdas são datas de calendário, sem conversão de fuso. O resumo inclui todas as ordens da linha selecionada, não apenas as que possuem perdas.

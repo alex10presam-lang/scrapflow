@@ -110,7 +110,7 @@ async function loadDashboard() {
     `${number.format(summary.record_count)} registros de perda`;
   $("#source-badge").textContent = data.preview
     ? "DADOS FICTÍCIOS · PRÉVIA"
-    : data.run.source === "demo"
+    : ["demo", "bots"].includes(data.run.source)
       ? "DADOS FICTÍCIOS · CONSOLIDADOS"
       : "LOTE IMPORTADO · CONSOLIDADO";
   $("#dataset-caption").textContent = data.preview
@@ -256,7 +256,7 @@ async function loadHistory() {
         element(
           "strong",
           "",
-          run.source === "demo" ? "Lote demonstrativo" : "Lote importado",
+          run.source === "bots" ? "Lote coletado pelos bots" : run.source === "demo" ? "Lote demonstrativo" : "Lote importado",
         ),
         element("small", "", `${run.id.slice(0, 8)} · Consolidado`),
       );
@@ -290,6 +290,7 @@ function navigate() {
   const names = {
     overview: "Visão geral",
     batches: "Processamentos",
+    automation: "Bots automáticos",
     method: "Como funciona",
   };
   const page =
