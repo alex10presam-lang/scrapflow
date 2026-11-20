@@ -8,14 +8,16 @@ ScrapFlow é uma aplicação local em Python que coleta e consolida cadastro de 
 
 Desenvolvi esta edição para demonstrar um fluxo completo de automação e análise de dados, com regras explícitas e exemplos reproduzíveis. Os dados são fictícios; o projeto não representa uma empresa ou operação real.
 
+## Como avaliar o projeto
+
+[Executar os bots](#experimente-em-poucos-minutos)
+
+Rode três coletores em paralelo com dados fictícios, simule uma falha temporária e confira a taxa de perda de 3,13% no relatório Excel.
+
+- **Código e testes.** [orquestração dos bots](scrapflow/automation.py), [pipeline de cálculo](scrapflow/pipeline.py), [contrato dos arquivos](docs/data-contract.md) e [testes da automação](tests/test_automation.py).
+- **Escopo.** Aplicação local com dados fictícios; os [resultados do exemplo](#um-resultado-que-você-pode-conferir) permitem conferir os cálculos.
+
 ![Bots do ScrapFlow com fontes fictícias e conferência dos arquivos salvos](docs/images/bots.jpg)
-
-## Leitura rápida do projeto
-
-- **Foco:** automação em Python, validação de dados e indicadores de produção.
-- **Evidência técnica:** [orquestração dos bots](scrapflow/automation.py), [pipeline de cálculo](scrapflow/pipeline.py), [contrato dos arquivos](docs/data-contract.md) e [testes da automação](tests/test_automation.py).
-- **Para avaliar:** [execute os bots](#experimente-em-poucos-minutos), simule uma falha temporária, confira os indicadores e baixe os arquivos de conferência.
-- **Estado:** aplicação local com dados fictícios; os [resultados do exemplo](#um-resultado-que-você-pode-conferir) permitem conferir os cálculos.
 
 ## Experimente em poucos minutos
 
